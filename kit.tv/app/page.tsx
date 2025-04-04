@@ -1,6 +1,6 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 
-export default function Home() {
-  return <Button size="lg">click me</Button>;
+export default function Page() {
+  return <p>only authenticated users can see this</p>;
 }
