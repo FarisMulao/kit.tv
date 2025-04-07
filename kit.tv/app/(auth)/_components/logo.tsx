@@ -10,7 +10,7 @@ const font = Poppins({
 export const Logo = () => {
   return (
     <div className="flex flex-col item-center gap-y-4">
-      <div className="bg-blue-300 rounded-full p-1">
+      <div className="bg-white rounded-full p-1">
         <Image src="/kitcat.svg" alt="kit.tv" height="80" width="80" />
       </div>
       <div className={cn("flex flex-col items-center", font.className)}>
