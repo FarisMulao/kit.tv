@@ -1,0 +1,16 @@
+Side bar - active streamers you follow, then active streams 
+	NOTE - always open on the side
+
+
+Home page - 
+	Browse	
+
+Stream page -
+	Video Stream
+	Stream BIo
+	allowed buttons
+	
+Create stream page - 
+
+Stream dashboard - 
+	M	

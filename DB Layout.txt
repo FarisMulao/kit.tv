@@ -1,0 +1,31 @@
+User table (already impled, but we need to add on...)
+	Stream bio
+	follower count
+
+Active stream table
+	streamm id
+	Stream title
+	Stream category
+	Streamer user id
+	start time
+
+Button table
+	button id
+	button text
+	button font
+	button text size
+	button font color
+	sound id
+	instruction text
+	(in the future) credits
+	button timeout
+
+Sound table
+	sound id
+	file url
+
+buttonqueue
+	stream id
+	button id
+	button timestamp
+
