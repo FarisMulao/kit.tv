@@ -22,4 +22,39 @@ model User {
   bio            String?  @db.Text
   createdAt      DateTime @default(now())
   updatedAt      DateTime @updatedAt
+  followCount    Int      @default(0)
+  activeStream ActiveStream?
+}
+
+model ActiveStream {
+  id String @id @default(uuid())
+  title String? @db.Text
+  category String? @db.Text
+  streamUserId String @unique
+  streamer User @relation(fields: [streamUserId], references: [id])
+  startTime DateTime @default(now())
+}
+
+model Button {
+  id String @id @default(uuid())
+  text String? @db.Text
+  font String? @db.Text
+  size Int @default(16)
+  color Int @default(0) //hex for black
+  instructions String? @db.Text
+  credits String? @db.Text
+  timeout Int @default(100)
+  inQueue ButtonQueue[]
+}
+
+model Sound{
+  id String @id @default(uuid())
+  fileUrl String @db.Text
+}
+
+model ButtonQueue{
+  id String @id @default(uuid())
+  buttonId String @unique
+  button Button @relation(fields: [buttonId], references: [id])
+  timestamp DateTime @default(now())
 }
