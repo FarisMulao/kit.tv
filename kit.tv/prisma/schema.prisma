@@ -45,6 +45,8 @@ model Button {
   credits      String?       @db.Text
   timeout      Int           @default(100)
   inQueue      ButtonQueue[]
+  streamerId   String        @unique
+  user         User          @relation(fields: [streamerId], references: [id])
 }
 
 model Sound {
