@@ -24,7 +24,7 @@ model User {
   updatedAt      DateTime      @updatedAt
   //followCount    Int           @default(0)
   activeStream   ActiveStream?
-  button         Button?
+  button         Button[]?
   following      Follow[]      @relation("Following")
   followedBy     Follow[]      @relation("FollowedBy")
 }
@@ -62,7 +62,6 @@ model Button {
   instructions String?       @db.Text
   credits      String?       @db.Text
   timeout      Int           @default(100)
-  inQueue      ButtonQueue[]
   streamerId   String        @unique
   user         User          @relation(fields: [streamerId], references: [id])
 }
@@ -73,8 +72,10 @@ model Sound {
 }
 
 model ButtonQueue {
-  id        String   @id @default(uuid())
-  buttonId  String   @unique
-  button    Button   @relation(fields: [buttonId], references: [id])
-  timestamp DateTime @default(now())
+  id         String   @id @default(uuid())
+  buttonId   String   @unique
+  button     Button   @relation(fields: [buttonId], references: [id])
+  timestamp  DateTime @default(now())
+  streamerId String   @unique
+  user       User     @relation(fields: [streamerId], references: [id])
 }
