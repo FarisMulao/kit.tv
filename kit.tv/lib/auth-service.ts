@@ -22,25 +22,30 @@ export const getSelf = async () => {
 };
 
 export const getSelfByUsername = async (username: string) => {
-    const self = await currentUser();
+    try {
+        const self = await currentUser();
 
-    if (!self || !self.username) {
-        throw new Error("Unauthorized");
+        if (!self || !self.username) {
+            throw new Error("Unauthorized");
+        }
+
+        const user = await db.user.findUnique({
+            where: {
+                username,
+            },
+        });
+
+        if (!user) {
+            throw new Error("Not Found");
+        }
+
+        if (self.username !== user.username) {
+            throw new Error("Unauthorized");
+        }
+
+        return user;
     }
-
-    const user = await db.user.findUnique({
-        where: {
-            username,
-        },
-    });
-
-    if (!user) {
-        throw new Error("Not Found");
+    catch {
+        return false;
     }
-
-    if (self.username !== user.username) {
-        throw new Error("Unauthorized");
-    }
-
-    return user;
 }
