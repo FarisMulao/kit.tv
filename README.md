@@ -2,17 +2,12 @@
 
 A live streaming service aimed to capture the once vibrant market of cat videos in a more modern internet.
 
----
-
 ## Contribuators
 
 - **Faris Mulaosmanovic** - [fmhfg@mst.edu](mailto:fmhfg@mst.edu)
 - **Ethan Kleine** - [ekleine@mst.edu](mailto:ekleine@mst.edu)
 - **Shaun Wolfe** - [swgw8@mst.edu](mailto:swgw8@mst.edu)
 - **Caleb Robinson** - [cmrd2d@mst.edu](mailto:cmrd2d@mst.edu)
-
-
----
 
 ## Installation
 
