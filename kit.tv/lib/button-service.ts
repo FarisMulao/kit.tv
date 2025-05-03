@@ -20,7 +20,10 @@ export const createButton = async (button: Button) => {
     //verify user auth
     const self = await getSelf();
 
-    //TODO add check to make sure authed user is creating a button for themselves and not someone else
+    //check to make sure authed user is creating a button for themselves and not someone else
+    if (self.id !== button.streamerId) {
+        return false; //TODO add logging here
+    }
 
     const createButton = await db.button.create({
         data: button
@@ -33,7 +36,10 @@ export const deleteButton = async (button: Button) => {
     //verify authed user matches the button owner
     const self = await getSelf();
 
-    //TODO add check to make sure authed user is the one who owns the button tht will be deleted
+    //check to make sure authed user is the one who owns the button tht will be deleted
+    if (self.id !== button.streamerId) {
+        return false; //TODO add logging here
+    }
 
     //delete button
     const buttonDelete = await db.button.delete({
