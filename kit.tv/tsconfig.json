@@ -21,7 +21,7 @@
     "paths": {
       "@/*": ["./*"]
     },
-    "types": ["jest", "cypress"]
+    "types": ["jest", "cypress", "node"]
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts", "jest.setup.ts", "cypress/**/*.ts", "cypress/**/*.tsx"],
   "exclude": ["node_modules"]
