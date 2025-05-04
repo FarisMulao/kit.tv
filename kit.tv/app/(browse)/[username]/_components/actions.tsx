@@ -60,6 +60,7 @@ export const Actions = ({ isFollowing, isBlocked, userId }: ActionsProps) => {
   return (
     <>
       <Button
+        data-cy={isFollowing ? "unfollow-button" : "follow-button"}
         disabled={isPending}
         variant="primary"
         onClick={isFollowing ? handleUnfollow : handleFollow}
@@ -68,6 +69,7 @@ export const Actions = ({ isFollowing, isBlocked, userId }: ActionsProps) => {
       </Button>
 
       <Button
+        data-cy={isBlocked ? "unblock-button" : "block-button"}
         disabled={isPending}
         onClick={isBlocked ? handleUnblock : handleBlock}
       >

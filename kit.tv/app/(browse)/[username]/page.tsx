@@ -23,7 +23,7 @@ const UserPage = async ({ params }: UserPageProps) => {
 
   return (
     <div className="flex flex-col gap-y-4">
-      <p>Username: {user.username}</p>
+      <p data-cy="username-field">Username: {user.username}</p>
       <p>User ID: {user.id}</p>
       <p>is following: {`${isFollowing}`}</p>
       <p>is blocked by this user: {`${isBlocked}`}</p>
