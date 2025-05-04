@@ -24,29 +24,45 @@ export const CreateButtonDialog = ({ streamerId }: CreateButtonDialogProps) => {
   const [instructions, setInstructions] = useState("");
   const [color, setColor] = useState("#000000");
   const [open, setOpen] = useState(false);
+  const [errors, setErrors] = useState<{ text?: string; instructions?: string }>({});
+
+  const validateForm = () => {
+    const newErrors: { text?: string; instructions?: string } = {};
+    if (!text.trim()) {
+      newErrors.text = "Button text is required";
+    }
+    if (!instructions.trim()) {
+      newErrors.instructions = "Instructions are required";
+    }
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
 
   const handleSubmit = async () => {
-    const result = await createButtonAction({
-      id: "",
-      text,
-      font: "Arial",
-      size: 16,
-      color: parseInt(color.replace("#", "0x"), 16),
-      instructions,
-      credits: "",
-      timeout: 100,
-      streamerId,
-    });
+    if (!validateForm()) {
+      return;
+    }
 
-    if (result.success) {
-      toast.success("Button created successfully");
+    try {
+      await createButtonAction({
+        id: "",
+        text,
+        font: "Arial",
+        size: 16,
+        color: parseInt(color.replace("#", "0x"), 16),
+        instructions,
+        credits: "",
+        timeout: 100,
+        streamerId,
+      });
       setOpen(false);
       // Reset form
       setText("");
       setInstructions("");
       setColor("#000000");
-    } else {
-      toast.error(result.error || "Failed to create button");
+      setErrors({});
+    } catch (error) {
+      console.error("Failed to create button:", error);
     }
   };
 
@@ -64,22 +80,30 @@ export const CreateButtonDialog = ({ streamerId }: CreateButtonDialogProps) => {
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="space-y-2">
-            <Label htmlFor="text">Button Text</Label>
+            <Label htmlFor="text">Button Text *</Label>
             <Input
               id="text"
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder="Enter button text"
+              required
             />
+            {errors.text && (
+              <p className="text-sm text-destructive">{errors.text}</p>
+            )}
           </div>
           <div className="space-y-2">
-            <Label htmlFor="instructions">Instructions</Label>
+            <Label htmlFor="instructions">Instructions *</Label>
             <Input
               id="instructions"
               value={instructions}
               onChange={(e) => setInstructions(e.target.value)}
               placeholder="Enter button instructions"
+              required
             />
+            {errors.instructions && (
+              <p className="text-sm text-destructive">{errors.instructions}</p>
+            )}
           </div>
           <div className="space-y-2">
             <Label htmlFor="color">Button Color</Label>
