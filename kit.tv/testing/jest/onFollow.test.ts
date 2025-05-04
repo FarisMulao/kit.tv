@@ -1,5 +1,5 @@
-import { onFollow } from './../actions/follow';
-import { followUser } from './../lib/follow-service';
+import { onFollow } from './../../actions/follow';
+import { followUser } from './../../lib/follow-service';
 import { revalidatePath } from 'next/cache';
 
 jest.mock('./../lib/follow-service', () => ({
