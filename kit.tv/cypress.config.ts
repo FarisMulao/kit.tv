@@ -16,5 +16,7 @@ export default defineConfig({
       return clerkSetup({ config })
     },
     baseUrl: 'http://localhost:3000',
+    viewportWidth: 1920,
+    viewportHeight: 1080,
   },
 });
