@@ -2,6 +2,7 @@
 
 import { createButton, deleteButton } from "@/lib/button-service";
 import { Button } from "@prisma/client";
+import { revalidatePath } from "next/cache";
 
 export const createButtonAction = async (button: Button) => {
   try {
@@ -9,6 +10,7 @@ export const createButtonAction = async (button: Button) => {
       ...button,
       id: "",
     });
+    revalidatePath("/");
     return { success: true };
   } catch (error) {
     console.error("Failed to create button:", error);
@@ -19,6 +21,7 @@ export const createButtonAction = async (button: Button) => {
 export const deleteButtonAction = async (button: Button) => {
   try {
     await deleteButton(button);
+    revalidatePath("/");
     return { success: true };
   } catch (error) {
     console.error("Failed to delete button:", error);
