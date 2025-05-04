@@ -1,6 +1,6 @@
-import { getRecommended } from "../lib/recommended-service";
-import { getSelf } from "../lib/auth-service";
-import { db } from "../lib/db";
+import { getRecommended } from "../../lib/recommended-service";
+import { getSelf } from "../../lib/auth-service";
+import { db } from "../../lib/db";
 
 // Tell Jest to mock these modules (so we control their behavior)
 jest.mock("@/lib/auth-service");
