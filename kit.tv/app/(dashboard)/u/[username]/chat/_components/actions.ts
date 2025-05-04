@@ -3,7 +3,7 @@
 import { createButton } from "@/lib/button-service";
 import { Button } from "@prisma/client";
 
-export const createButtonAction = async (button: Omit<Button, "id">) => {
+export const createButtonAction = async (button: Button) => {
   try {
     await createButton({
       ...button,

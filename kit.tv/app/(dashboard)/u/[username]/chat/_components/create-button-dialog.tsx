@@ -27,6 +27,7 @@ export const CreateButtonDialog = ({ streamerId }: CreateButtonDialogProps) => {
 
   const handleSubmit = async () => {
     const result = await createButtonAction({
+      id: "",
       text,
       font: "Arial",
       size: 16,
