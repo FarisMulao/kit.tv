@@ -11,7 +11,7 @@ export const Actions = async () => {
     <div className="flex gap-x-2 justify-end items-center ml-4 lg:ml-0">
       {!user && (
         <SignInButton>
-          <Button size="sm" variant="primary">
+          <Button size="sm" variant="primary" data-cy="log-in-button">
             Log In
           </Button>
         </SignInButton>
@@ -24,7 +24,7 @@ export const Actions = async () => {
             className="text-muted-foreground hover:text-primary"
             asChild
           >
-            <Link href={`/u/${user.username}`}>
+            <Link href={`/u/${user.username}`} data-cy="dashboard-link">
               <Clapperboard className="h-5 w-5 lg:mr-2 " />
               <span className="hidden lg:block">Dashboard</span>
             </Link>
