@@ -26,7 +26,12 @@ export const createButton = async (button: Button) => {
     }
 
     const createButton = await db.button.create({
-        data: button
+        data: {
+            text: button.text,
+            color: button.color,
+            instructions: button.instructions,
+            streamerId: button.streamerId,
+        }
     });
 
     return true;

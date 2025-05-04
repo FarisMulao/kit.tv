@@ -26,7 +26,7 @@ model User {
   activeStream   ActiveStream?
   following      Follow[]      @relation("Following")
   followedBy     Follow[]      @relation("FollowedBy")
-  Button         Button?
+  Button         Button[]
   ButtonQueue    ButtonQueue?
   blocking       Block[]       @relation("Blocking")
   blockedBy      Block[]       @relation("BlockedBy")
@@ -104,7 +104,7 @@ model Button {
   instructions String?      @db.Text
   credits      String?      @db.Text
   timeout      Int          @default(100)
-  streamerId   String       @unique
+  streamerId   String       
   user         User         @relation(fields: [streamerId], references: [id])
   ButtonQueue  ButtonQueue?
 }
