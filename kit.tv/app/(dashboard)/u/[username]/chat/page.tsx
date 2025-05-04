@@ -4,6 +4,7 @@ import { ToggleCard } from "./_components/toggle-card";
 import { getButtons } from "@/lib/button-service";
 import { Button } from "@prisma/client";
 import { CreateButtonDialog } from "./_components/create-button-dialog";
+import { ButtonCard } from "./_components/button-card";
 
 const ChatPage = async () => {
   const self = await getSelf();
@@ -40,8 +41,8 @@ const ChatPage = async () => {
       <div>
         <h1 className="text-2xl font-bold mb-4">Buttons</h1>
         <div className="space-y-4">
-          {buttons.map((button:Button) => (
-            <div key={button.id}>{button.id}</div>
+          {buttons.map((button: Button) => (
+            <ButtonCard key={button.id} button={button} />
           ))}
           <CreateButtonDialog streamerId={self.id} />
         </div>
