@@ -1,5 +1,6 @@
 import { db } from "@/lib/db";
 import { getSelf } from "@/lib/auth-service";
+import { unfollowUser } from "./follow-service";
 
 export const isBlockedByUser = async (id: string) => {
     try {
@@ -60,6 +61,13 @@ export const blockUser = async (id: string) => {
     if (existingBlock) {
         throw new Error("Already blocked");
     }
+
+    try {
+        const unfollowIfFollowed = await unfollowUser(id);
+    } catch {
+        //assume user is already unfollowed
+    }
+    
 
     const block = await db.block.create({
         data: {

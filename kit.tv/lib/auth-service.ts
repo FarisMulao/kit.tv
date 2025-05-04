@@ -45,7 +45,7 @@ export const getSelfByUsername = async (username: string) => {
 
         return user;
     }
-    catch {
+    catch (error: any) {
         return false;
     }
 }
