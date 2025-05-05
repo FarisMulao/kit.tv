@@ -9,7 +9,8 @@ import {
 import { ConnectionState } from "livekit-client";
 import { useEffect, useMemo, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
-import { ChatHeader } from "./chat-header";
+import { ChatHeader, ChatHeaderSkeleton } from "./chat-header";
+import { Skeleton } from "../ui/skeleton";
 
 interface ChatProps {
   hostName: string;
@@ -68,6 +69,14 @@ export const Chat = ({
   return (
     <div className="flex flex-col bg-secondary border-l border-b pt-0 h-[calc(100vh-80px)]">
       <ChatHeader />
+    </div>
+  );
+};
+
+export const ChatSkeleton = () => {
+  return (
+    <div className="flex h-full items-center justify-center ">
+      <Skeleton className=" pt-0 h-[calc(100vh-80px)]" />
     </div>
   );
 };
