@@ -23,7 +23,7 @@ const CreatorPage = async ({ params }: CreatorPageProps) => {
       <div className="flex-1">
         <StreamPlayer user={user} stream={user.stream} isFollowing={true} />
       </div>
-      <EventsPanel userId={user.id} />
+      <EventsPanel username={user.username} />
     </div>
   );
 };

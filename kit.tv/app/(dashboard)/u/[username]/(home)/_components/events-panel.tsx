@@ -5,16 +5,16 @@ import { queryButtonsAction } from "./actions";
 import { Button } from "@prisma/client";
 
 interface QueryButtonsProps {
-  userId: string;
+  username: string;
 }
 
-export const EventsPanel = ({ userId }: QueryButtonsProps) => {
+export const EventsPanel = ({username}: QueryButtonsProps) => {
   const [buttonEvents, setButtonEvents] = useState<Button[]>([]);
 
   useEffect(() => {
     const fetchEvents = async () => {
       try {
-        const buttons = await queryButtonsAction(userId);
+        const buttons = await queryButtonsAction(username);
         if (buttons.success && buttons.buttons) {
           setButtonEvents(prevButtons => {
             const newButtons = buttons.buttons
@@ -59,7 +59,7 @@ export const EventsPanel = ({ userId }: QueryButtonsProps) => {
       window.clearInterval(fetchInterval);
       window.clearInterval(clearInterval);
     };
-  }, [userId]);
+  }, []);
 
   return (
     <div className="w-80 h-full bg-gray-900 p-4 overflow-y-auto">
