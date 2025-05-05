@@ -1,7 +1,8 @@
 "use server";
 
 import { createButton, deleteButton } from "@/lib/button-service";
-import { Button } from "@prisma/client";
+import { getSounds } from "@/lib/sound-service";
+import { Button, Sound } from "@prisma/client";
 import { revalidatePath } from "next/cache";
 
 export const createButtonAction = async (button: Button) => {
@@ -28,3 +29,13 @@ export const deleteButtonAction = async (button: Button) => {
     return { success: false, error: "Failed to delete button" };
   }
 }; 
+
+export const getSoundsAction = async () => {
+  try {
+    const sounds: Sound[] = await getSounds();
+    return { success: true, sounds };
+  } catch (error) {
+    console.error("Failed to get sounds:", error);
+    return { success: false, error: "Failed to get sounds" };
+  }
+};

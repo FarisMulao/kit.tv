@@ -1,4 +1,5 @@
 import { StreamPlayer } from "@/components/stream-player";
+import { EventsPanel } from "@/app/(dashboard)/u/[username]/(home)/_components/events-panel";
 import { getUserByUsername } from "@/lib/user-service";
 import { currentUser } from "@clerk/nextjs/server";
 
@@ -18,8 +19,11 @@ const CreatorPage = async ({ params }: CreatorPageProps) => {
   }
 
   return (
-    <div className="h-full">
-      <StreamPlayer user={user} stream={user.stream} isFollowing={true} />
+    <div className="h-full flex">
+      <div className="flex-1">
+        <StreamPlayer user={user} stream={user.stream} isFollowing={true} />
+      </div>
+      <EventsPanel userId={user.id} />
     </div>
   );
 };

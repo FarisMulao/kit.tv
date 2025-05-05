@@ -104,14 +104,15 @@ model Button {
   instructions String?      @db.Text
   credits      String?      @db.Text
   timeout      Int          @default(100)
-  streamerId   String       
+  streamerId   String
   user         User         @relation(fields: [streamerId], references: [id])
   ButtonQueue  ButtonQueue?
+  soundName    String?
 }
 
 model Sound {
-  id      String @id @default(uuid())
-  fileUrl String @db.Text
+  id      String   @id @default(uuid())
+  fileName String   @db.Text
 }
 
 model ButtonQueue {

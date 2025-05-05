@@ -3,7 +3,7 @@
 import { Button } from "@prisma/client";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button as ShadcnButton } from "@/components/ui/button";
-import { Trash2 } from "lucide-react";
+import { Play, Trash2 } from "lucide-react";
 import { deleteButtonAction } from "./actions";
 import { toast } from "sonner";
 
@@ -18,6 +18,16 @@ export const ButtonCard = ({ button }: ButtonCardProps) => {
       toast.success("Button deleted successfully");
     } else {
       toast.error(result.error || "Failed to delete button");
+    }
+  };
+
+  const playSound = () => {
+    if (button.soundName) {
+      const audio = new Audio(`/audioClips/${button.soundName}.mp3`);
+      audio.play().catch(error => {
+        console.error('Error playing sound:', error);
+        toast.error("Failed to play sound");
+      });
     }
   };
 
@@ -42,6 +52,21 @@ export const ButtonCard = ({ button }: ButtonCardProps) => {
       </CardHeader>
       <CardContent>
         <p className="text-sm text-muted-foreground">{button.instructions}</p>
+        <div className="flex items-center gap-2 mt-2">
+          <p className="text-sm text-muted-foreground">
+            Sound: {button.soundName || "None"}
+          </p>
+          {button.soundName && button.soundName !== "None " && (
+            <ShadcnButton
+              variant="ghost"
+              size="icon"
+              onClick={playSound}
+              className="h-6 w-6"
+            >
+              <Play className="h-3 w-3" />
+            </ShadcnButton>
+          )}
+        </div>
       </CardContent>
     </Card>
   );
