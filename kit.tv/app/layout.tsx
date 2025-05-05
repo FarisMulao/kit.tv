@@ -34,10 +34,10 @@ export default function RootLayout({
         <ClerkProvider appearance={{ baseTheme: dark }} afterSignOutUrl="/">
           <ThemeProvider
             attribute="class"
-            forcedTheme="dark"
+            forcedTheme="calico"
             storageKey="kit-tv-theme"
             enableSystem={false}
-            defaultTheme="dark"
+            defaultTheme="calico"
           >
             <Toaster theme="light" position="bottom-center" />
             {children}
