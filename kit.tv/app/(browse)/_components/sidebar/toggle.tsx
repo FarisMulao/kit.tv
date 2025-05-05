@@ -14,7 +14,7 @@ export const Toggle = () => {
   return (
     <>
       {collapsed && (
-        <div className="hidden lg:flex w-full items-center justify-cetner pt-4 mb-4">
+        <div className="hidden lg:flex w-full items-center justify-cetner pt-4 mb-4 bg-[#2B1605">
           <Hint label={label} side="right" asChild>
             <Button
               className="h-auto mx-auto p-2"
@@ -27,7 +27,7 @@ export const Toggle = () => {
         </div>
       )}
       {!collapsed && (
-        <div className="p-3 pl-6 mb-2 flex items-center w-full">
+        <div className="p-3 pl-6 mb-2 flex items-center w-full bg-[#2B1605]">
           <p className="font-semibold text-primary">For you</p>
           <Hint label={label} side="right" asChild>
             <Button
@@ -46,7 +46,7 @@ export const Toggle = () => {
 
 export const ToggleSkeleton = () => {
   return (
-    <div className="p-3 pl-6 mb-2 hidden lg:flex items-center justify-between w-full">
+    <div className="p-3 pl-6 mb-2 hidden lg:flex items-center justify-between w-full bg-[#2B1605]">
       <Skeleton className="h-6 w-[100px]" />
       <Skeleton className="h-6 w-6" />
     </div>

@@ -12,7 +12,7 @@ export const Sidebar = async () => {
   return (
     <Wrapper>
       <Toggle />
-      <div className="space-y-4 pt-4 lg:pt-0">
+      <div className="space-y-4 pt-4 lg:pt-0 bg-[#2B1605]">
         <Following data={following} />
         <Recommended data={recommended} />
       </div>
