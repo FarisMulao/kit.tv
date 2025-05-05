@@ -11,8 +11,12 @@ import { useEffect, useMemo, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import { ChatHeader, ChatHeaderSkeleton } from "./chat-header";
 import { Skeleton } from "../ui/skeleton";
+import { Button } from "@prisma/client";
+import { pressButtonAction } from "@/actions/get-buttons";
+import { Button as ShadcnButton } from "@/components/ui/button";
 
 interface ChatProps {
+  buttonList: Button[];
   hostName: string;
   hostIdentity: string;
   viewerName: string;
@@ -23,6 +27,7 @@ interface ChatProps {
 }
 
 export const Chat = ({
+  buttonList,
   hostName,
   hostIdentity,
   viewerName,
@@ -35,6 +40,7 @@ export const Chat = ({
   const { variant, onExapnd } = useChatSidebar((state) => state);
   const connectionState = useConnectionState();
   const participant = useRemoteParticipant(hostIdentity);
+  const [buttonTimeouts, setButtonTimeouts] = useState<Record<string, boolean>>({});
 
   const isOnline = participant && connectionState === ConnectionState.Connected;
 
@@ -53,6 +59,20 @@ export const Chat = ({
     return [...messages].sort((a, b) => b.timestamp - a.timestamp);
   }, [messages]);
 
+  const handleButtonClick = (button: Button) => {
+    if (buttonTimeouts[button.id] || typeof window === "undefined") return;
+    
+    pressButtonAction(button.id);
+    
+    // Set timeout for this button
+    setButtonTimeouts(prev => ({ ...prev, [button.id]: true }));
+    
+    // Clear timeout after the button's timeout period
+    setTimeout(() => {
+      setButtonTimeouts(prev => ({ ...prev, [button.id]: false }));
+    }, button.timeout);
+  };
+
   const onSubmit = () => {
     if (!send) {
       return;
@@ -69,6 +89,19 @@ export const Chat = ({
   return (
     <div className="flex flex-col bg-secondary border-l border-b pt-0 h-[calc(100vh-80px)]">
       <ChatHeader />
+      <div className="flex flex-col gap-y-2 p-4">
+        {typeof window !== "undefined" && buttonList.map((button) => (
+          <ShadcnButton
+            key={button.id}
+            onClick={() => handleButtonClick(button)}
+            variant="secondary"
+            className="w-full justify-start"
+            disabled={buttonTimeouts[button.id]}
+          >
+            {button.text}
+          </ShadcnButton>
+        ))}
+      </div>
     </div>
   );
 };

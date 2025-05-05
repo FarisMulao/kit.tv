@@ -1,7 +1,7 @@
 "use client";
 
 import { useViewerToken } from "@/hooks/use-viewer-token";
-import { User, Stream } from "@prisma/client";
+import { User, Stream, Button } from "@prisma/client";
 import { LiveKitRoom } from "@livekit/components-react";
 import { Video } from "./video";
 import { useChatSidebar } from "@/store/use-chat-sidebar";
@@ -10,6 +10,9 @@ import { Chat, ChatSkeleton } from "./chat";
 import { ChatToggle } from "./chat-toggle";
 import { Header, HeaderSkeleton } from "./header";
 import { Skeleton } from "../ui/skeleton";
+import { useEffect, useState } from "react";
+import { getButtonsAction } from "@/actions/get-buttons";
+
 
 interface StreamPlayerProps {
   user: User & { stream: Stream | null };
@@ -26,9 +29,26 @@ export const StreamPlayer = ({
 
   const { collapsed } = useChatSidebar((state) => state);
 
+    //silly bypass to allow us to call an async function
+    const [buttons, setButtons] = useState<Button[]>([]);
+
+    useEffect(() => {
+      const fetchButtons = async () => {
+        if (typeof window !== "undefined") {
+          const buttons = await getButtonsAction(stream.userId);
+          if (buttons.success && buttons.buttons) {
+            setButtons(buttons.buttons);
+          }
+        }
+      };
+      fetchButtons();
+    }, []);
+
   if (!token || !name || !identity) {
     return <div>Cannot view stream</div>;
   }
+
+
 
   return (
     <>
@@ -57,7 +77,8 @@ export const StreamPlayer = ({
           />
         </div>
         <div className={cn("col-span-1", collapsed && "hidden")}>
-          <Chat
+        <Chat
+            buttonList={buttons}
             hostName={user.username}
             hostIdentity={user.id}
             viewerName={name}
