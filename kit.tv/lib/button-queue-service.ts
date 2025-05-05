@@ -1,4 +1,4 @@
-import { ActiveStream, Button } from "@prisma/client";
+import { Stream, ActiveStream, Button } from "@prisma/client";
 import { getSelf } from "./auth-service";
 import { db } from "./db";
 
@@ -8,14 +8,14 @@ export const getButtonQueue = async () => {
     const self = await getSelf();
 
     //verify streamer is live
-    const stream = await db.activeStream.findFirst({
+    const stream = await db.stream.findFirst({
             where: {
-                streamUserId: self.id
+                userId: self.id
             }
     });
 
     //check if its empty. if it is, user isn't live
-    if (stream === null) {
+    if (stream === null || !stream.isLive) {
         return []
     }
 
@@ -64,14 +64,14 @@ export const pressButton = async (buttonId: string) => {
     }
 
     //verify streamer is live
-    const stream: ActiveStream | null = await db.activeStream.findFirst({
+    const stream: Stream | null = await db.stream.findFirst({
         where: {
-            streamUserId: button.streamerId
+            userId: button.streamerId
         }
     });
 
-    //check if its empty. if it is, user isn't live
-    if (stream === null) {
+    //check if its empty or the stream isnt live. if it is, user isn't live
+    if (stream === null || !stream.isLive) {
         return false;
     }
 
