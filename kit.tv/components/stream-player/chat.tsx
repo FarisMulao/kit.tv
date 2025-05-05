@@ -59,18 +59,22 @@ export const Chat = ({
     return [...messages].sort((a, b) => b.timestamp - a.timestamp);
   }, [messages]);
 
-  const handleButtonClick = (button: Button) => {
+  const handleButtonClick = async (button: Button) => {
     if (buttonTimeouts[button.id] || typeof window === "undefined") return;
-    
-    pressButtonAction(button.id); //figure out a soln for this. if we want to get the return value from this function, we need to await it. Im guessing this needs to be moved to the useeffect handler which is a pain
-    
-    // Set timeout for this button
-    setButtonTimeouts(prev => ({ ...prev, [button.id]: true }));
-    
-    // Clear timeout after the button's timeout period
-    setTimeout(() => {
-      setButtonTimeouts(prev => ({ ...prev, [button.id]: false }));
-    }, button.timeout);
+    console.log("sending press button action");
+    try {
+      await pressButtonAction(button.id);
+      console.log("sent button press action");
+      // Set timeout for this button
+      setButtonTimeouts(prev => ({ ...prev, [button.id]: true }));
+      
+      // Clear timeout after the button's timeout period
+      setTimeout(() => {
+        setButtonTimeouts(prev => ({ ...prev, [button.id]: false }));
+      }, button.timeout);
+    } catch (error) {
+      console.error("Failed to press button:", error);
+    }
   };
 
   const onSubmit = () => {
