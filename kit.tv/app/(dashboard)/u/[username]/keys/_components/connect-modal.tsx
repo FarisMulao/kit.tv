@@ -41,7 +41,7 @@ export const ConnectModal = () => {
           closeRef?.current?.click();
         })
         .catch(() => {
-          toast.error("Something went wrong teest");
+          toast.error("Something went wrong");
         });
     });
   };
