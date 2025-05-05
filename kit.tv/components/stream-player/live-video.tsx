@@ -16,8 +16,8 @@ export const LiveVideo = ({ participants }: LiveVideoProps) => {
   const wrapperRef = useRef<HTMLDivElement>(null);
 
   const [isFullscreen, setIsFullscreen] = useState(false);
-  const [volume, setVolume] = useState(100); // Initialize with full volume
-  const [isMuted, setIsMuted] = useState(false); // Track muted state separately
+  const [volume, setVolume] = useState(100);
+  const [isMuted, setIsMuted] = useState(false);
 
   const handleFullscreen = () => {
     if (!document.fullscreenElement && isFullscreen) {
@@ -47,7 +47,6 @@ export const LiveVideo = ({ participants }: LiveVideoProps) => {
     setIsFullscreen(isCurrentlyFullscreen);
   };
 
-  // Handle volume change
   const handleVolumeChange = (newVolume: number) => {
     setVolume(newVolume);
     if (videoRef.current) {
@@ -62,19 +61,16 @@ export const LiveVideo = ({ participants }: LiveVideoProps) => {
     }
   };
 
-  // Handle mute toggle
   const handleMuteToggle = () => {
     if (videoRef.current) {
       const newMutedState = !isMuted;
       videoRef.current.muted = newMutedState;
       setIsMuted(newMutedState);
 
-      // If we're unmuting, restore the previous volume
       if (!newMutedState && volume === 0) {
-        setVolume(50); // Default to 50% if previously at 0
+        setVolume(50);
         videoRef.current.volume = 0.5;
       } else if (newMutedState) {
-        // If we're muting, keep track of volume but set actual volume to 0
         videoRef.current.volume = 0;
       }
     }
@@ -83,7 +79,6 @@ export const LiveVideo = ({ participants }: LiveVideoProps) => {
   // @ts-ignore
   useEventListener("fullscreenchange", handleFullscreenChange);
 
-  // Apply tracks to video element
   useTracks([Track.Source.Camera, Track.Source.Microphone])
     .filter((track) => track.participant.identity === participants.identity)
     .forEach((track) => {
@@ -92,7 +87,6 @@ export const LiveVideo = ({ participants }: LiveVideoProps) => {
       }
     });
 
-  // Initialize volume when video element is created
   useEffect(() => {
     if (videoRef.current) {
       videoRef.current.volume = volume / 100;
@@ -100,7 +94,6 @@ export const LiveVideo = ({ participants }: LiveVideoProps) => {
     }
   }, [videoRef.current]);
 
-  // Calculate displayed volume value (0 when muted)
   const displayVolume = isMuted ? 0 : volume;
 
   return (
