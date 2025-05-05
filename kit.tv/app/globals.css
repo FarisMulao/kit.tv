@@ -80,7 +80,7 @@
 
 .calico {
   --background: rgb(11, 8, 4);
-  --foreground: rgb(11, 8, 4);
+  --foreground: rgb(247, 242, 237);
 
   --card: rgb(0, 255, 255);
   --card-foreground: rgb(0, 255, 255);
@@ -97,8 +97,8 @@
   --muted: rgb(247, 242, 237);
   --muted-foreground: rgb(247, 242, 237);
 
-  --accent: rgb(239, 0, 0);
-  --accent-foreground: rgb(255, 0, 0);
+  --accent: rgb(127, 56, 17);
+  --accent-foreground: rgb(247, 242, 237);
 
   --destructive: rgb(255, 255, 255);
   --border: rgb(255, 255, 255);
