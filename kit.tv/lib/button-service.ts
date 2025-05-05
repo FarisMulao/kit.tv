@@ -31,6 +31,7 @@ export const createButton = async (button: Button) => {
             color: button.color,
             instructions: button.instructions,
             streamerId: button.streamerId,
+            soundName: button.soundName && button.soundName !== "None" ? button.soundName : null,
         }
     });
 

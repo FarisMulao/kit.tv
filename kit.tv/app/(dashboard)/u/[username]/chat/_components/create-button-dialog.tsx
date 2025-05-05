@@ -10,10 +10,18 @@ import {
 } from "@/components/ui/dialog";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { createButtonAction } from "./actions";
-import { useState } from "react";
-import { Plus } from "lucide-react";
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+import { createButtonAction, getSoundsAction } from "./actions";
+import { useEffect, useState } from "react";
+import { Play, Plus } from "lucide-react";
 import { toast } from "sonner";
+import { Sound } from "@prisma/client";
 
 interface CreateButtonDialogProps {
   streamerId: string;
@@ -23,8 +31,20 @@ export const CreateButtonDialog = ({ streamerId }: CreateButtonDialogProps) => {
   const [text, setText] = useState("");
   const [instructions, setInstructions] = useState("");
   const [color, setColor] = useState("#000000");
+  const [soundName, setSoundName] = useState<string | null>(null);
+  const [sounds, setSounds] = useState<Sound[]>([]);
   const [open, setOpen] = useState(false);
   const [errors, setErrors] = useState<{ text?: string; instructions?: string }>({});
+
+  useEffect(() => {
+    const loadSounds = async () => {
+      const result = await getSoundsAction();
+      if (result.success && result.sounds) {
+        setSounds(result.sounds);
+      }
+    };
+    loadSounds();
+  }, []);
 
   const validateForm = () => {
     const newErrors: { text?: string; instructions?: string } = {};
@@ -54,16 +74,26 @@ export const CreateButtonDialog = ({ streamerId }: CreateButtonDialogProps) => {
         credits: "",
         timeout: 100,
         streamerId,
+        soundName,
       });
       setOpen(false);
       // Reset form
       setText("");
       setInstructions("");
       setColor("#000000");
+      setSoundName(null);
       setErrors({});
     } catch (error) {
       console.error("Failed to create button:", error);
     }
+  };
+
+  const playSound = (soundName: string) => {
+    const audio = new Audio(`/audioClips/${soundName}.mp3`);
+    audio.play().catch(error => {
+      console.error('Error playing sound:', error);
+      toast.error("Failed to play sound");
+    });
   };
 
   return (
@@ -120,6 +150,39 @@ export const CreateButtonDialog = ({ streamerId }: CreateButtonDialogProps) => {
                 onChange={(e) => setColor(e.target.value)}
                 className="flex-1"
               />
+            </div>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="sound">Sound Effect</Label>
+            <div className="flex items-center gap-2">
+              <div className="flex-1">
+                <Select
+                  value={soundName || ""}
+                  onValueChange={(value) => setSoundName(value || null)}
+                >
+                  <SelectTrigger>
+                    <SelectValue placeholder="Select a sound" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="None ">None</SelectItem>
+                    {sounds.map((sound) => (
+                      <SelectItem key={sound.id} value={sound.fileName}>
+                        {sound.fileName}
+                      </SelectItem>
+                    ))}
+                  </SelectContent>
+                </Select>
+              </div>
+              {soundName && soundName !== "None " && (
+                <Button
+                  variant="ghost"
+                  size="icon"
+                  onClick={() => playSound(soundName)}
+                  className="h-10 w-10"
+                >
+                  <Play className="h-4 w-4" />
+                </Button>
+              )}
             </div>
           </div>
         </div>

@@ -3,7 +3,7 @@ import { getSelf } from "./auth-service";
 import { db } from "./db";
 
 
-export const getButtonQueue = async () => {
+export const getButtonQueue = async (userId: string) => {
     //verify auth
     const self = await getSelf();
 
@@ -35,8 +35,17 @@ export const getButtonQueue = async () => {
         }
     })
 
-    //now return the button Ids
-    return queuedButtons;
+    //get the buttons from the database that are in the queue
+    //Note - this should be fine because the queuedButtons shouldnt have any duplicates
+    const buttons = await db.button.findMany({
+        where: {
+            id: {
+                in: queuedButtons.map(qB => qB.buttonId)
+            }
+        }
+    })
+
+    return buttons;
 }
 
 export const pressButton = async (buttonId: string) => {
