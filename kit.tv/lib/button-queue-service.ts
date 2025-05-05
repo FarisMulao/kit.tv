@@ -3,7 +3,7 @@ import { getSelf } from "./auth-service";
 import { db } from "./db";
 
 
-export const getButtonQueue = async (userId: string) => {
+export const getButtonQueue = async () => {
     //verify auth
     const self = await getSelf();
 
