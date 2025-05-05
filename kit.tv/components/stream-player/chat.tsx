@@ -62,7 +62,7 @@ export const Chat = ({
   const handleButtonClick = (button: Button) => {
     if (buttonTimeouts[button.id] || typeof window === "undefined") return;
     
-    pressButtonAction(button.id);
+    pressButtonAction(button.id); //figure out a soln for this. if we want to get the return value from this function, we need to await it. Im guessing this needs to be moved to the useeffect handler which is a pain
     
     // Set timeout for this button
     setButtonTimeouts(prev => ({ ...prev, [button.id]: true }));
