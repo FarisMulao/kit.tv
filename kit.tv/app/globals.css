@@ -79,46 +79,46 @@
 }
 
 .calico {
-  --background: rgb(188, 109, 70);
-  --foreground: rgb(188, 109, 70);
+  --background: rgb(11, 8, 4);
+  --foreground: rgb(11, 8, 4);
 
-  --card: rgb(252, 147, 11);
-  --card-foreground: rgb(167, 35, 172);
+  --card: rgb(0, 255, 255);
+  --card-foreground: rgb(0, 255, 255);
 
-  --popover: rgb(254, 247, 240);
-  --popover-foreground: rgb(53, 42, 39);
+  --popover: rgb(255, 0, 255);
+  --popover-foreground: rgb(255, 0, 255);
 
-  --primary: rgb(199, 111, 55);
-  --primary-foreground: rgb(255, 250, 245);
+  --primary: rgb(247, 242, 237);
+  --primary-foreground: rgb(247, 242, 237);
 
-  --secondary: rgb(83, 63, 56);
-  --secondary-foreground: rgb(255, 249, 244);
+  --secondary: rgb(127, 56, 17);
+  --secondary-foreground: rgb(127, 56, 17);
 
-  --muted: rgb(158, 101, 70);
-  --muted-foreground: rgba(53, 42, 39, 0.7);
+  --muted: rgb(247, 242, 237);
+  --muted-foreground: rgb(247, 242, 237);
 
-  --accent: rgb(239, 184, 129);
-  --accent-foreground: rgb(53, 42, 39);
+  --accent: rgb(239, 0, 0);
+  --accent-foreground: rgb(255, 0, 0);
 
-  --destructive: rgb(112, 52, 36);
-  --border: rgba(158, 101, 70, 0.3);
-  --input: rgba(158, 101, 70, 0.3);
-  --ring: rgba(199, 111, 55, 0.4);
+  --destructive: rgb(255, 255, 255);
+  --border: rgb(255, 255, 255);
+  --input: rgb(255, 255, 255);
+  --ring: rgb(255, 255, 255);
 
-  --chart-1: rgb(199, 111, 55);
-  --chart-2: rgb(83, 63, 56);
-  --chart-3: rgb(239, 184, 129);
-  --chart-4: rgb(254, 247, 240);
-  --chart-5: rgb(112, 52, 36);
+  --chart-1: rgb(255, 255, 255);
+  --chart-2: rgb(255, 255, 255);
+  --chart-3: rgb(255, 255, 255);
+  --chart-4: rgb(255, 255, 255);
+  --chart-5: rgb(255, 255, 255);
 
-  --sidebar: rgb(135, 29, 101);
-  --sidebar-foreground: rgb(61, 46, 41);
-  --sidebar-primary: rgb(199, 111, 55);
-  --sidebar-primary-foreground: rgb(255, 249, 244);
-  --sidebar-accent: rgb(239, 184, 129);
-  --sidebar-accent-foreground: rgb(61, 46, 41);
-  --sidebar-border: rgba(158, 101, 70, 0.3);
-  --sidebar-ring: rgba(199, 111, 55, 0.4);
+  --sidebar: rgb(255, 255, 255);
+  --sidebar-foreground: rgb(255, 255, 255);
+  --sidebar-primary: rgb(255, 255, 255);
+  --sidebar-primary-foreground: rgb(255, 255, 255);
+  --sidebar-accent: rgb(255, 255, 255);
+  --sidebar-accent-foreground: rgb(255, 255, 255);
+  --sidebar-border: rgb(255, 255, 255);
+  --sidebar-ring: rgb(255, 255, 255);
 }
 
 
