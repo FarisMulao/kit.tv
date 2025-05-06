@@ -12,7 +12,7 @@ import { Header, HeaderSkeleton } from "./header";
 import { Skeleton } from "../ui/skeleton";
 import { useEffect, useState } from "react";
 import { getButtonsAction } from "@/actions/get-buttons";
-
+import { Info } from "./info";
 
 interface StreamPlayerProps {
   user: User & { stream: Stream | null };
@@ -29,26 +29,24 @@ export const StreamPlayer = ({
 
   const { collapsed } = useChatSidebar((state) => state);
 
-    //silly bypass to allow us to call an async function
-    const [buttons, setButtons] = useState<Button[]>([]);
+  //silly bypass to allow us to call an async function
+  const [buttons, setButtons] = useState<Button[]>([]);
 
-    useEffect(() => {
-      const fetchButtons = async () => {
-        if (typeof window !== "undefined") {
-          const buttons = await getButtonsAction(stream.userId);
-          if (buttons.success && buttons.buttons) {
-            setButtons(buttons.buttons);
-          }
+  useEffect(() => {
+    const fetchButtons = async () => {
+      if (typeof window !== "undefined") {
+        const buttons = await getButtonsAction(stream.userId);
+        if (buttons.success && buttons.buttons) {
+          setButtons(buttons.buttons);
         }
-      };
-      fetchButtons();
-    }, []);
+      }
+    };
+    fetchButtons();
+  }, []);
 
   if (!token || !name || !identity) {
     return <div>Cannot view stream</div>;
   }
-
-
 
   return (
     <>
@@ -65,19 +63,27 @@ export const StreamPlayer = ({
           collapsed && "lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2"
         )}
       >
-        <div className="space-y-4 col-span-1 lg:col-span-2 xl:col-span-3 2xl:col-span-5 lg:overflow-y-auto hidden-scrollbar pb-10">
+        <div className="col-span-1 lg:col-span-2 xl:col-span-3 2xl:col-span-5 lg:overflow-y-auto hidden-scrollbar pb-10">
           <Video hostName={user.username} hostIdentity={user.id} />
-          <Header
-            hostName={user.username}
-            hostIdentity={user.id}
-            viewerIdentity={identity}
-            imageUrl={user.imageUrl}
-            isFollowing={isFollowing}
-            name={stream.name ?? ""}
-          />
+          <div className="bg-black">
+            <Header
+              hostName={user.username}
+              hostIdentity={user.id}
+              viewerIdentity={identity}
+              imageUrl={user.imageUrl}
+              isFollowing={isFollowing}
+              name={stream.name ?? ""}
+            />
+            <Info
+              hostIdentity={user.id}
+              viewerIdentity={identity}
+              name={stream.name ?? ""}
+              thumbnailUrl={stream.thumbnailUrl ?? ""}
+            />
+          </div>
         </div>
         <div className={cn("col-span-1", collapsed && "hidden")}>
-        <Chat
+          <Chat
             buttonList={buttons}
             hostName={user.username}
             hostIdentity={user.id}

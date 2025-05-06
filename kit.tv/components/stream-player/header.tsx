@@ -37,7 +37,7 @@ export const Header = ({
   const isHost = viewerIdentity === hostAsViewer;
 
   return (
-    <div className="flex flex-col lg:flex-row gap-y-4 lg:gap-y-0 items-start justify-between px-4 py-4 bg-black">
+    <div className="flex flex-col lg:flex-row gap-y-4 lg:gap-y-0 items-start justify-between px-4 py-4">
       <div className="flex items-center gap-x-3">
         <UserAvatar
           imageUrl={imageUrl}
@@ -78,7 +78,7 @@ export const Header = ({
 
 export const HeaderSkeleton = () => {
   return (
-    <div className="flex flex-col lg:flex-row gap-y-4 lg:gap-y-0 items-start justify-between px-4 py-4 bg-black">
+    <div className="flex flex-col lg:flex-row gap-y-4 lg:gap-y-0 items-start justify-between px-4 py-4">
       <div className="flex items-center gap-x-3">
         <UserAvatarSkeleton size="lg" />
         <div className="space-y-2">
