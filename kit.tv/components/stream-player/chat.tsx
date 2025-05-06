@@ -99,8 +99,15 @@ export const Chat = ({
             key={button.id}
             onClick={() => handleButtonClick(button)}
             variant="secondary"
-            className="w-full justify-start"
+            className="w-full"
             disabled={buttonTimeouts[button.id]}
+            style={{ 
+              backgroundColor: '#' + button.color.toString(16).padStart(6, '0'), 
+              color: 'white', 
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center'
+            }}
           >
             {button.text}
           </ShadcnButton>
