@@ -1,4 +1,4 @@
-import { getSearchResults } from "@/lib/search-service";
+import { getSearchResults } from "@/lib/search";
 import { StreamCard } from "../../(home)/_components/stream-card";
 
 interface FeedProps {
