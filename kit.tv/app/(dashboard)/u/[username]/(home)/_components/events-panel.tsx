@@ -26,7 +26,7 @@ export const EventsPanel = ({ username }: QueryButtonsProps) => {
 
             // Play sound for each new event
             newButtons.forEach((button: Button) => {
-              if (button.soundName) {
+              if (button.soundName && button.soundName !== "None" && button.soundName !== "None ") {
                 const audio = new Audio(`/audioClips/${button.soundName}.mp3`);
                 audio
                   .play()
