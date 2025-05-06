@@ -123,3 +123,27 @@ export const unblockUser = async (id: string) => {
 
     return unblock;
 }
+
+export const getBlockedUsers = async (userId: string) => {
+    const self = await getSelf();
+
+    if (self.id !== userId) {
+        return {success: false, error: "You are not authorized to view this user's blocked users"};
+    }
+    
+    try {
+        const blockedUsers = await db.block.findMany({
+            where: {
+                blockerId: userId
+            },
+            include: {
+                blocked: true
+            }
+        });
+
+        return {success: true, blockedUsers};
+    }
+    catch {
+        return {success: false, error: "Error getting blocked users"};
+    }
+}
