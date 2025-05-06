@@ -1,9 +1,58 @@
 "use server";
 
-import {IngressAudioEncodingPreset, IngressInput, IngressVideoEncodingPreset, IngressClient, RoomServiceClient, TrackSource, type CreateIngressOptions, IngressAudioOptions, IngressVideoOptions} from "livekit-server-sdk";
-import { db } from "@/lib/db";
-import { getSelf } from "@/lib/auth-service";
 import { revalidatePath } from "next/cache";
+import { db } from "@/lib/db";
+import { Stream, User } from "@prisma/client";
+import { getSelf } from "@/lib/auth";
+import {IngressAudioEncodingPreset, IngressInput, IngressVideoEncodingPreset, IngressClient, RoomServiceClient, TrackSource, type CreateIngressOptions, IngressAudioOptions, IngressVideoOptions} from "livekit-server-sdk";
+
+export const updateStream = async (values: Partial<Stream>) => {
+    try {
+        const self = await getSelf();
+        const selfStream = await db.stream.findUnique({ where: { userId: self.id } });
+
+        if (!selfStream) {
+            throw new Error("Stream not found");
+        }
+
+        const validData = {
+            thumbnailUrl: values.thumbnailUrl,
+            name: values.name,
+            isChatEnabled: values.isChatEnabled,
+            isChatFollowersOnly: values.isChatFollowersOnly,
+            isChatDelayed: values.isChatDelayed,
+        }
+
+        const stream = await db.stream.update({ where: { id: selfStream.id }, data: { ...validData } });
+
+        revalidatePath(`/u/${self.username}/chat`);
+        revalidatePath(`/u/${self.username}`);
+        revalidatePath(`/${self.username}`);
+
+        return stream;
+    }
+    catch {
+        throw new Error("Internal error");
+    }
+};
+
+export const updateUser = async (values: Partial<User>) => {
+    try {
+        const self = await getSelf();
+        const validData = {
+            bio: values.bio
+        };
+
+        const user = await db.user.update({where: {id: self.id}, data: {...validData}});
+        
+        revalidatePath(`/u/${self.username}`);
+        revalidatePath(`/${self.username}`);
+
+        return user;
+    } catch {
+        throw new Error("Internal error");
+    }
+}; 
 
 const roomSerice = new RoomServiceClient(
     process.env.LIVEKIT_API_URL!,

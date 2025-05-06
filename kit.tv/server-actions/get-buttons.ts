@@ -1,6 +1,6 @@
 "use server";
 
-import { pressButton } from "@/lib/button-queue-service";
+import { pressButton } from "@/lib/button-queue";
 import { getButtons } from "@/lib/button-service";
 import { revalidatePath } from "next/cache";
 

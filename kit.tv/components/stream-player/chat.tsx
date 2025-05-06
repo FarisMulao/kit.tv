@@ -1,6 +1,6 @@
 "use client";
 
-import { useChatSidebar } from "@/store/use-chat-sidebar";
+import { useChatSidebar } from "@/hooks/use-chat-sidebar";
 import {
   useChat,
   useConnectionState,
@@ -12,7 +12,7 @@ import { useMediaQuery } from "usehooks-ts";
 import { ChatHeader, ChatHeaderSkeleton } from "./chat-header";
 import { Skeleton } from "../ui/skeleton";
 import { Button } from "@prisma/client";
-import { pressButtonAction } from "@/actions/get-buttons";
+import { pressButtonAction } from "@/server-actions/get-buttons";
 import { Button as ShadcnButton } from "@/components/ui/button";
 
 interface ChatProps {
@@ -40,7 +40,9 @@ export const Chat = ({
   const { variant, onExapnd } = useChatSidebar((state) => state);
   const connectionState = useConnectionState();
   const participant = useRemoteParticipant(hostIdentity);
-  const [buttonTimeouts, setButtonTimeouts] = useState<Record<string, boolean>>({});
+  const [buttonTimeouts, setButtonTimeouts] = useState<Record<string, boolean>>(
+    {}
+  );
 
   const isOnline = participant && connectionState === ConnectionState.Connected;
 
@@ -66,11 +68,11 @@ export const Chat = ({
       await pressButtonAction(button.id);
       console.log("sent button press action");
       // Set timeout for this button
-      setButtonTimeouts(prev => ({ ...prev, [button.id]: true }));
-      
+      setButtonTimeouts((prev) => ({ ...prev, [button.id]: true }));
+
       // Clear timeout after the button's timeout period
       setTimeout(() => {
-        setButtonTimeouts(prev => ({ ...prev, [button.id]: false }));
+        setButtonTimeouts((prev) => ({ ...prev, [button.id]: false }));
       }, button.timeout);
     } catch (error) {
       console.error("Failed to press button:", error);
@@ -91,27 +93,29 @@ export const Chat = ({
   };
 
   return (
-    <div className="flex flex-col bg-secondary border-l border-b pt-0 h-[calc(100vh-80px)]">
+    <div className="flex flex-col bg-secondary border-l border-white/20 pt-0 h-[calc(100vh-80px)]">
       <ChatHeader />
       <div className="flex flex-col gap-y-2 p-4">
-        {typeof window !== "undefined" && buttonList.map((button) => (
-          <ShadcnButton
-            key={button.id}
-            onClick={() => handleButtonClick(button)}
-            variant="secondary"
-            className="w-full"
-            disabled={buttonTimeouts[button.id]}
-            style={{ 
-              backgroundColor: '#' + button.color.toString(16).padStart(6, '0'), 
-              color: 'white', 
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center'
-            }}
-          >
-            {button.text}
-          </ShadcnButton>
-        ))}
+        {typeof window !== "undefined" &&
+          buttonList.map((button) => (
+            <ShadcnButton
+              key={button.id}
+              onClick={() => handleButtonClick(button)}
+              variant="secondary"
+              className="w-full"
+              disabled={buttonTimeouts[button.id]}
+              style={{
+                backgroundColor:
+                  "#" + button.color.toString(16).padStart(6, "0"),
+                color: "white",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {button.text}
+            </ShadcnButton>
+          ))}
       </div>
     </div>
   );

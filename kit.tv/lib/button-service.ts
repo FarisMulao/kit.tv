@@ -1,5 +1,5 @@
 import { Button } from "@prisma/client";
-import { getSelf } from "./auth-service";
+import { getSelf } from "./auth";
 import { db } from "./db";
 
 export const getButtons = async (streamerId: string) => {

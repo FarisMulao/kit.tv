@@ -4,18 +4,22 @@ import { useViewerToken } from "@/hooks/use-viewer-token";
 import { User, Stream, Button } from "@prisma/client";
 import { LiveKitRoom } from "@livekit/components-react";
 import { Video } from "./video";
-import { useChatSidebar } from "@/store/use-chat-sidebar";
+import { useChatSidebar } from "@/hooks/use-chat-sidebar";
 import { cn } from "@/lib/utils";
 import { Chat, ChatSkeleton } from "./chat";
 import { ChatToggle } from "./chat-toggle";
 import { Header, HeaderSkeleton } from "./header";
 import { Skeleton } from "../ui/skeleton";
 import { useEffect, useState } from "react";
-import { getButtonsAction } from "@/actions/get-buttons";
+import { getButtonsAction } from "@/server-actions/get-buttons";
 import { Info } from "./info";
+import { About } from "./about";
 
 interface StreamPlayerProps {
-  user: User & { stream: Stream | null };
+  user: User & {
+    stream: Stream | null;
+    _count: { followedBy: number };
+  };
   stream: Stream;
   isFollowing: boolean;
 }
@@ -63,9 +67,9 @@ export const StreamPlayer = ({
           collapsed && "lg:grid-cols-2 xl:grid-cols-2 2xl:grid-cols-2"
         )}
       >
-        <div className="col-span-1 lg:col-span-2 xl:col-span-3 2xl:col-span-5 lg:overflow-y-auto hidden-scrollbar pb-10">
+        <div className="col-span-1 lg:col-span-2 xl:col-span-3 2xl:col-span-5 lg:overflow-y-auto hidden-scrollbar ">
           <Video hostName={user.username} hostIdentity={user.id} />
-          <div className="bg-black">
+          <div className="bg-black pb-10">
             <Header
               hostName={user.username}
               hostIdentity={user.id}
@@ -79,6 +83,13 @@ export const StreamPlayer = ({
               viewerIdentity={identity}
               name={stream.name ?? ""}
               thumbnailUrl={stream.thumbnailUrl ?? ""}
+            />
+            <About
+              hostName={user.username}
+              hostIdentity={user.id}
+              viewerIdentity={identity}
+              bio={user.bio ?? ""}
+              followedByCount={user._count.followedBy}
             />
           </div>
         </div>

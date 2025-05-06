@@ -1,6 +1,6 @@
 "use client";
 
-import { useSidebar } from "@/store/use-sidebar";
+import { useSidebar } from "@/hooks/use-sidebar";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
 import { useMediaQuery } from "usehooks-ts";
@@ -22,7 +22,12 @@ export const Container = ({ children }: ContainerProps) => {
   }, [matches]);
 
   return (
-    <div className={cn("flex-1", collapsed ? "ml-18" : "ml[70px] lg:ml-60")}>
+    <div
+      className={cn(
+        "flex-1 bg-stone-900",
+        collapsed ? "ml-18" : "ml[70px] lg:ml-60"
+      )}
+    >
       {children}
     </div>
   );

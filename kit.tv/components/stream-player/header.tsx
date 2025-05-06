@@ -1,7 +1,6 @@
 "use client";
 
 import { UserAvatar, UserAvatarSkeleton } from "@/components/user-avatar";
-import { VerifiedMark } from "@/components/verified-mark";
 import {
   useParticipants,
   useRemoteParticipant,
@@ -49,7 +48,6 @@ export const Header = ({
         <div className="space-y-1">
           <div className="flex items-center gap-x-2">
             <h2 className="text-lg font-semibold">{hostName}</h2>
-            <VerifiedMark />
           </div>
           <p className="text-sm font-semibold">{name}</p>
           {isLive ? (

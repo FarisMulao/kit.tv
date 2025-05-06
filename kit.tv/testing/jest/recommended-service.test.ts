@@ -1,5 +1,5 @@
-import { getRecommended } from "../../lib/recommended-service";
-import { getSelf } from "../../lib/auth-service";
+import { getRecommended } from "../../lib/recommended";
+import { getSelf } from "../../lib/auth";
 import { db } from "../../lib/db";
 
 // Tell Jest to mock these modules (so we control their behavior)

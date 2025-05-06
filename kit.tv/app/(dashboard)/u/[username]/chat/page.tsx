@@ -1,5 +1,5 @@
-import { getSelf } from "@/lib/auth-service";
-import { getStreamByUserId } from "@/lib/stream-service";
+import { getSelf } from "@/lib/auth";
+import { getStreamByUserId } from "@/lib/stream";
 import { ToggleCard } from "./_components/toggle-card";
 import { getButtons } from "@/lib/button-service";
 import { Button } from "@prisma/client";

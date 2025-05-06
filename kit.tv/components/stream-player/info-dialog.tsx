@@ -12,20 +12,23 @@ import { Button } from "@/components/ui/button";
 import { Label } from "../ui/label";
 import { Input } from "../ui/input";
 import React, { useState, useTransition, useRef } from "react";
-import { updateStream } from "@/actions/stream";
+import { updateStream } from "@/server-actions/stream";
 import { toast } from "sonner";
 import { UploadDropzone } from "@/lib/uploadthing";
 import { useRouter } from "next/navigation";
+import { Hint } from "../hint";
+import { Trash } from "lucide-react";
+import Image from "next/image";
 
-interface InfoModalProps {
+interface InfoDialogProps {
   initialName: string;
   initialThumbnailUrl: string | null;
 }
 
-export function InfoModal({
+export function InfoDialog({
   initialName,
   initialThumbnailUrl,
-}: InfoModalProps) {
+}: InfoDialogProps) {
   const [name, setName] = useState(initialName);
   const [thumbnailUrl, setThumbnailUrl] = useState(initialThumbnailUrl);
   const [isPending, startTransition] = useTransition();
@@ -47,6 +50,20 @@ export function InfoModal({
         })
         .catch(() => {
           toast.error("Failed to update stream info");
+        });
+    });
+  };
+
+  const onRemove = () => {
+    startTransition(() => {
+      updateStream({ thumbnailUrl: null })
+        .then(() => {
+          toast.success("Thumbnail Removed");
+          setThumbnailUrl("");
+          closeRef.current?.click();
+        })
+        .catch(() => {
+          toast.error("Something went wrong");
         });
     });
   };
@@ -74,6 +91,30 @@ export function InfoModal({
           </div>
           <div className="space-y-2">
             <Label>Thumbnail</Label>
+            {thumbnailUrl ? (
+              <div className="relative aspect-video rounded-xl overflow-hidden border border-white/10">
+                <div className="absolute top-2 right-2 z-10">
+                  <Hint label="Remove Thumbnail" asChild side="left">
+                    <Button
+                      asChild
+                      disabled={isPending}
+                      onClick={onRemove}
+                      className="h-auto p-1.5 w-auto"
+                    >
+                      <Trash className="h-4 w-4" />
+                    </Button>
+                  </Hint>
+                </div>
+                <Image
+                  src={thumbnailUrl}
+                  alt="thumbnail"
+                  fill
+                  className="object-cover"
+                />
+              </div>
+            ) : (
+              <div></div>
+            )}
             <div className="">
               <UploadDropzone
                 endpoint="thumbnailUploader"
@@ -86,11 +127,10 @@ export function InfoModal({
                   },
                 }}
                 onClientUploadComplete={(res) => {
-                  console.log("test test test");
                   if (res) {
-                    console.log("test test test");
                     setThumbnailUrl(res[0]?.serverData.fileUrl);
                     router.refresh();
+                    closeRef.current?.click();
                   }
                 }}
                 onUploadError={(err) => {

@@ -20,7 +20,7 @@ import {
 } from "@/components/ui/select";
 import { IngressInput } from "livekit-server-sdk";
 import { useState, useTransition, useRef, ComponentRef } from "react";
-import { createIngress } from "@/actions/ingress";
+import { createIngress } from "@/server-actions/stream";
 import { toast } from "sonner";
 
 const RTMP = String(IngressInput.RTMP_INPUT);
@@ -28,7 +28,7 @@ const WHIP = String(IngressInput.WHIP_INPUT);
 
 type ingressType = typeof RTMP | typeof WHIP;
 
-export const ConnectModal = () => {
+export const ConnectDialog = () => {
   const closeRef = useRef<ComponentRef<"button">>(null);
   const [isPending, startTransition] = useTransition();
   const [ingressType, setIngressType] = useState<ingressType>(RTMP);

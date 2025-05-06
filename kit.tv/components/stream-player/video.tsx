@@ -33,5 +33,9 @@ export const Video = ({ hostName, hostIdentity }: VideoProps) => {
     content = <LiveVideo participants={participant} />;
   }
 
-  return <div className="aspect-video border-b group relative">{content}</div>;
+  return (
+    <div className="aspect-video border-b border-white/20 group relative">
+      {content}
+    </div>
+  );
 };

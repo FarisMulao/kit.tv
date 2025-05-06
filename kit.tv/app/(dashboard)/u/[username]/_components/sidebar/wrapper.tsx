@@ -1,7 +1,7 @@
 "use client";
 
 import { cn } from "@/lib/utils";
-import { useCreatorSidebar } from "@/store/use-creator-sidebar";
+import { useCreatorSidebar } from "@/hooks/use-creator-sidebar";
 
 interface WrapperProps {
   children: React.ReactNode;
@@ -13,7 +13,7 @@ export const Wrapper = ({ children }: WrapperProps) => {
   return (
     <aside
       className={cn(
-        "fixed left-0 flex flex-col w-60 h-full bg-[#0B0804] border-r border-[#0B0804] z-50",
+        "fixed left-0 flex flex-col w-60 h-full bg-[#0B0804] border-r border-white/10 z-50",
         collapsed && "w-[70px]"
       )}
     >

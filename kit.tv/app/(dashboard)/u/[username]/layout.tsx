@@ -1,4 +1,4 @@
-import { getSelfByUsername } from "@/lib/auth-service";
+import { getSelfByUsername } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import { Navbar } from "./_components/navbar";
 import { Sidebar } from "./_components/sidebar";

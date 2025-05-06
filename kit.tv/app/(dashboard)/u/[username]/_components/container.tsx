@@ -1,6 +1,6 @@
 "use client";
 
-import { useCreatorSidebar } from "@/store/use-creator-sidebar";
+import { useCreatorSidebar } from "@/hooks/use-creator-sidebar";
 import { cn } from "@/lib/utils";
 import { useEffect } from "react";
 import { useMediaQuery } from "usehooks-ts";

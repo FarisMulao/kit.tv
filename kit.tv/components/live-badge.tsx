@@ -12,7 +12,7 @@ export const LiveBadge = ({ className }: LiveBadgeProps) => {
         className
       )}
     >
-      Live
+      LIVE
     </div>
   );
 };

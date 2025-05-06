@@ -1,6 +1,6 @@
 "use server";
 
-import { getButtonQueue } from "@/lib/button-queue-service";
+import { getButtonQueue } from "@/lib/button-queue";
 import { createButton, deleteButton, getButtons } from "@/lib/button-service";
 import { Button } from "@prisma/client";
 import { revalidatePath } from "next/cache";
@@ -20,7 +20,3 @@ export const queryButtonsAction = async (username: string) => {
     return { success: false, error: "Failed to query buttons" };
   }
 };
-
-
-
-

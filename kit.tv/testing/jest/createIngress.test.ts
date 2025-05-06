@@ -1,8 +1,8 @@
-import { createIngress } from './../../actions/ingress'; // Adjust import path
-import { ingressClient } from 'livekit-server-sdk'; // Import only for mocking
-import { resetIngresses } from './../../actions/ingress';
+import { createIngress } from '../../server-actions/stream'; // Adjust import path
+import { IngressClient } from 'livekit-server-sdk'; // Import only for mocking
+import { resetIngresses } from '../../server-actions/ingress';
 import { db } from '@/lib/db';
-import { getSelf } from '@/lib/auth-service';
+import { getSelf } from '@/lib/auth';
 import { IngressInput, IngressVideoEncodingPreset, IngressAudioEncodingPreset, IngressVideoOptions, IngressAudioOptions, TrackSource } from 'livekit-server-sdk';
 
 jest.mock('@/lib/auth-service', () => ({

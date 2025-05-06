@@ -1,7 +1,12 @@
+import { Suspense } from "react";
+import { Feed, FeedSkeleton } from "./_components/feed";
+
 export default function Page() {
   return (
-    <div className="flex flex-col gap-y-4">
-      <h1>Home Page</h1>
+    <div className="h-full p-8 max-w-screen-2xl mx-auto">
+      <Suspense fallback={<FeedSkeleton />}>
+        <Feed />
+      </Suspense>
     </div>
   );
 }

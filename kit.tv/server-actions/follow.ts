@@ -1,7 +1,7 @@
 "use server";
 
 import { revalidatePath } from "next/cache";
-import { followUser, unfollowUser } from "@/lib/follow-service";
+import { followUser, unfollowUser } from "@/lib/follow";
 
 export const onFollow = async (id: string) => {
     try {

@@ -1,6 +1,6 @@
 // getSelf.test.ts
 
-import { getSelf } from "../../lib/auth-service"; // Adjust the path if needed
+import { getSelf } from "../../lib/auth"; // Adjust the path if needed
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "@/lib/db";
 

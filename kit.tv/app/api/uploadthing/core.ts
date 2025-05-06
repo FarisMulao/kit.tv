@@ -1,4 +1,4 @@
-import { getSelf } from "@/lib/auth-service";
+import { getSelf } from "@/lib/auth";
 import { db } from "@/lib/db";
 import {createUploadthing, type FileRouter} from "uploadthing/next";
 
@@ -12,7 +12,7 @@ export const ourFileRouter = {
         return {user: self}
     })
     .onUploadComplete( async ({metadata, file}) => {
-        await db.user.update({where: {id: metadata.user.id}, data: {imageUrl: file.ufsUrl}});
+        await db.stream.update({where: {userId: metadata.user.id}, data: {thumbnailUrl: file.ufsUrl}});
 
         return {fileUrl: file.ufsUrl};
     }),

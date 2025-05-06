@@ -1,5 +1,5 @@
 import { db } from "@/lib/db";
-import { getSelf } from "@/lib/auth-service";
+import { getSelf } from "@/lib/auth";
 
 export const getRecommended = async () => {
     let userId;

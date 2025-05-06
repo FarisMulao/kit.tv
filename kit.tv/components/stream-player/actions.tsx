@@ -5,7 +5,7 @@ import { Button } from "../ui/button";
 import { Heart } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useRouter } from "next/navigation";
-import { onFollow, onUnfollow } from "@/actions/follow";
+import { onFollow, onUnfollow } from "@/server-actions/follow";
 import { toast } from "sonner";
 import { useTransition } from "react";
 import { Skeleton } from "@/components/ui/skeleton";
@@ -67,7 +67,7 @@ export const Actions = ({
       onClick={toggleFollow}
       variant={"secondary"}
       size="sm"
-      className="w-full lg:w-auto"
+      className="w-full lg:w-auto text-white"
     >
       <Heart
         className={cn("h-4 w-4 mr-2", isFollowing ? "fill-white" : "fill-none")}
