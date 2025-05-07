@@ -48,7 +48,7 @@ export const EventsPanel = ({ username }: QueryButtonsProps) => {
     fetchEvents();
 
     // Set up interval for fetching new events
-    const fetchInterval: NodeJS.Timeout = setInterval(fetchEvents, 200000); // Every 1 minute
+    const fetchInterval: NodeJS.Timeout = setInterval(fetchEvents, 2000); // Every 1 minute
 
     // Set up interval for clearing old events
     const clearInterval: NodeJS.Timeout = setInterval(() => {
