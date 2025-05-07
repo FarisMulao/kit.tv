@@ -66,7 +66,7 @@ export const EventsPanel = ({ username }: QueryButtonsProps) => {
   }, []);
 
   return (
-    <div className="w-80 h-full bg-orange-900 p-4 overflow-y-auto">
+    <div className="w-80 h-full bg-orange-900 p-4 overflow-y-auto" data-cy="events-panel">
       <h2 className="text-xl font-bold mb-4">Events</h2>
       <div className="space-y-4">
         {buttonEvents.map((button: Button) => (

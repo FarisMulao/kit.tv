@@ -10,7 +10,7 @@ export const Feed = async () => {
 
       <div className="grid grid-cols-3 gap-4">
         {data.map((stream) => (
-          <StreamCard
+          <StreamCard 
             key={stream.id}
             data={{ ...stream, name: stream.name ?? "Unknown" }}
           />

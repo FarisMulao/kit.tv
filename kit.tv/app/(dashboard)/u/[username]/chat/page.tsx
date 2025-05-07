@@ -16,7 +16,7 @@ const ChatPage = async () => {
   }
 
   return (
-    <div className="p-6 space-y-8">
+    <div className="p-6 space-y-8" data-cy="chat-page">
       <div>
         <h1 className="text-2xl font-bold mb-4">Chat Settings</h1>
         <div className="space-y-4">

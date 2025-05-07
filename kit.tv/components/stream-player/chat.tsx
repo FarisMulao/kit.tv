@@ -100,6 +100,7 @@ export const Chat = ({
           buttonList.map((button) => (
             <ShadcnButton
               key={button.id}
+              data-cy={`chat-button-${button.text}`}
               onClick={() => handleButtonClick(button)}
               variant="secondary"
               className="w-full"

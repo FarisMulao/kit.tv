@@ -16,7 +16,7 @@ interface StreamCardProps {
 export const StreamCard = ({ data }: StreamCardProps) => {
   return (
     <Link href={`/${data.user.username}`}>
-      <div className="h-full w-full space-y-4">
+      <div className="h-full w-full space-y-4" data-cy={`stream-card-${data.user.username}`}>
         <Thumbnail
           src={data.thumbnailUrl}
           fallback={data.user.imageUrl}

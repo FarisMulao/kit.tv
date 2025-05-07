@@ -26,6 +26,7 @@ export const NavItem = ({
     <Button
       asChild
       variant="ghost"
+      data-cy={`sidebar-nav-item-${label}`}
       className={cn("w-full h-10 rounded-sm", isActive && "bg-accent")}
     >
       <Link href={href}>

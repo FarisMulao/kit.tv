@@ -69,7 +69,7 @@ export const StreamPlayer = ({
       >
         <div className="col-span-1 lg:col-span-2 xl:col-span-3 2xl:col-span-5 lg:overflow-y-auto hidden-scrollbar ">
           <Video hostName={user.username} hostIdentity={user.id} />
-          <div className="bg-black pb-10">
+          <div className="bg-black pb-10" data-cy="stream-player-info">
             <Header
               hostName={user.username}
               hostIdentity={user.id}

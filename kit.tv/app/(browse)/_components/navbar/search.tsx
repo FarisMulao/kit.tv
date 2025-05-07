@@ -38,6 +38,7 @@ export const Search = () => {
       className="relative w-full lg:w-[400px] flex items-center ml-10"
     >
       <Input
+        data-cy="search-input"
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="Search"
@@ -50,6 +51,7 @@ export const Search = () => {
         />
       )}
       <Button
+        data-cy="search-button"
         type="submit"
         size="sm"
         variant="secondary"

@@ -63,6 +63,7 @@ export const Actions = ({
 
   return (
     <Button
+      data-cy={isFollowing ? "stream-player-unfollow-button" : "stream-player-follow-button"}
       disabled={isPending || isHost}
       onClick={toggleFollow}
       variant={"secondary"}
