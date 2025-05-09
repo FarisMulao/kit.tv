@@ -25,11 +25,6 @@ export const Navigation = () => {
       href: `/u/${user?.username}/chat`,
       icon: MessageSquare,
     },
-    {
-      label: "Community",
-      href: `/u/${user?.username}/community`,
-      icon: Users,
-    },
   ];
 
   if (!user?.username) {
@@ -41,7 +36,7 @@ export const Navigation = () => {
   }
 
   return (
-    <ul className="space-y-2 px-2.5 pt-4 lg:pt-0">
+    <ul className="space-y-1 px-2.5 pt-4 lg:pt-0">
       {routes.map((route) => (
         <NavItem
           key={route.href}

@@ -1,4 +1,4 @@
-import { resetIngresses } from './../../actions/ingress'; // ← adjust path
+import { resetIngresses } from '../../server-actions/ingress'; // ← adjust path
 
 // Mock classes outside of Jest auto-mock to avoid ESM transform issues
 const mockListIngress = jest.fn();

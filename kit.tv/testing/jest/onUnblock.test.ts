@@ -1,4 +1,4 @@
-import { onBlock, onUnblock } from './../../actions/block'; // adjust path if needed
+import { onBlock, onUnblock } from '../../server-actions/block'; // adjust path if needed
 import { blockUser, unblockUser } from '@/lib/block-service';
 import { revalidatePath } from 'next/cache';
 

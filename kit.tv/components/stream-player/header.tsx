@@ -1,7 +1,6 @@
 "use client";
 
 import { UserAvatar, UserAvatarSkeleton } from "@/components/user-avatar";
-import { VerifiedMark } from "@/components/verified-mark";
 import {
   useParticipants,
   useRemoteParticipant,
@@ -37,7 +36,7 @@ export const Header = ({
   const isHost = viewerIdentity === hostAsViewer;
 
   return (
-    <div className="flex flex-col lg:flex-row gap-y-4 lg:gap-y-0 items-start justify-between px-4 py-4 bg-black">
+    <div className="flex flex-col lg:flex-row gap-y-4 lg:gap-y-0 items-start justify-between px-4 py-4">
       <div className="flex items-center gap-x-3">
         <UserAvatar
           imageUrl={imageUrl}
@@ -49,7 +48,6 @@ export const Header = ({
         <div className="space-y-1">
           <div className="flex items-center gap-x-2">
             <h2 className="text-lg font-semibold">{hostName}</h2>
-            <VerifiedMark />
           </div>
           <p className="text-sm font-semibold">{name}</p>
           {isLive ? (
@@ -78,7 +76,7 @@ export const Header = ({
 
 export const HeaderSkeleton = () => {
   return (
-    <div className="flex flex-col lg:flex-row gap-y-4 lg:gap-y-0 items-start justify-between px-4 py-4 bg-black">
+    <div className="flex flex-col lg:flex-row gap-y-4 lg:gap-y-0 items-start justify-between px-4 py-4">
       <div className="flex items-center gap-x-3">
         <UserAvatarSkeleton size="lg" />
         <div className="space-y-2">

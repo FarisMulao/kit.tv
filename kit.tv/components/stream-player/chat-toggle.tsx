@@ -5,7 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Hint } from "@/components/hint";
 import { cn } from "@/lib/utils";
 import { useMediaQuery } from "usehooks-ts";
-import { useChatSidebar } from "@/store/use-chat-sidebar";
+import { useChatSidebar } from "@/hooks/use-chat-sidebar";
 import { useEffect } from "react";
 
 export const ChatToggle = () => {

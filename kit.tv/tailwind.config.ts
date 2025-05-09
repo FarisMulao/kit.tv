@@ -1,9 +1,13 @@
 // tailwind.config.ts
 import type { Config } from 'tailwindcss'
+import { withUt } from 'uploadthing/tw'
 
 const config: Config = {
   content: [
-    './src/**/*.{js,ts,jsx,tsx}', // Important: tells Tailwind where to look
+    './kit.tv/**/*.{js,ts,jsx,tsx}', // Your project structure
+    './app/**/*.{js,ts,jsx,tsx}',    // Next.js app directory
+    './components/**/*.{js,ts,jsx,tsx}', // Components directory
+    './node_modules/@uploadthing/react/dist/**/*.{js,ts,jsx,tsx}', 
   ],
   theme: {
     extend: {
@@ -18,4 +22,5 @@ const config: Config = {
   },
   plugins: [],
 }
-export default config
+
+export default withUt(config)

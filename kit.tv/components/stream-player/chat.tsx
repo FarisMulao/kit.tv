@@ -1,6 +1,6 @@
 "use client";
 
-import { useChatSidebar } from "@/store/use-chat-sidebar";
+import { useChatSidebar } from "@/hooks/use-chat-sidebar";
 import {
   useChat,
   useConnectionState,
@@ -12,7 +12,7 @@ import { useMediaQuery } from "usehooks-ts";
 import { ChatHeader, ChatHeaderSkeleton } from "./chat-header";
 import { Skeleton } from "../ui/skeleton";
 import { Button } from "@prisma/client";
-import { pressButtonAction } from "@/actions/get-buttons";
+import { pressButtonAction } from "@/server-actions/get-buttons";
 import { Button as ShadcnButton } from "@/components/ui/button";
 
 interface ChatProps {
@@ -40,7 +40,9 @@ export const Chat = ({
   const { variant, onExapnd } = useChatSidebar((state) => state);
   const connectionState = useConnectionState();
   const participant = useRemoteParticipant(hostIdentity);
-  const [buttonTimeouts, setButtonTimeouts] = useState<Record<string, boolean>>({});
+  const [buttonTimeouts, setButtonTimeouts] = useState<Record<string, boolean>>(
+    {}
+  );
 
   const isOnline = participant && connectionState === ConnectionState.Connected;
 
@@ -59,18 +61,22 @@ export const Chat = ({
     return [...messages].sort((a, b) => b.timestamp - a.timestamp);
   }, [messages]);
 
-  const handleButtonClick = (button: Button) => {
+  const handleButtonClick = async (button: Button) => {
     if (buttonTimeouts[button.id] || typeof window === "undefined") return;
-    
-    pressButtonAction(button.id); //figure out a soln for this. if we want to get the return value from this function, we need to await it. Im guessing this needs to be moved to the useeffect handler which is a pain
-    
-    // Set timeout for this button
-    setButtonTimeouts(prev => ({ ...prev, [button.id]: true }));
-    
-    // Clear timeout after the button's timeout period
-    setTimeout(() => {
-      setButtonTimeouts(prev => ({ ...prev, [button.id]: false }));
-    }, button.timeout);
+    console.log("sending press button action");
+    try {
+      await pressButtonAction(button.id);
+      console.log("sent button press action");
+      // Set timeout for this button
+      setButtonTimeouts((prev) => ({ ...prev, [button.id]: true }));
+
+      // Clear timeout after the button's timeout period
+      setTimeout(() => {
+        setButtonTimeouts((prev) => ({ ...prev, [button.id]: false }));
+      }, button.timeout);
+    } catch (error) {
+      console.error("Failed to press button:", error);
+    }
   };
 
   const onSubmit = () => {
@@ -87,20 +93,30 @@ export const Chat = ({
   };
 
   return (
-    <div className="flex flex-col bg-secondary border-l border-b pt-0 h-[calc(100vh-80px)]">
+    <div className="flex flex-col bg-secondary border-l border-white/20 pt-0 h-[calc(100vh-80px)]">
       <ChatHeader />
       <div className="flex flex-col gap-y-2 p-4">
-        {typeof window !== "undefined" && buttonList.map((button) => (
-          <ShadcnButton
-            key={button.id}
-            onClick={() => handleButtonClick(button)}
-            variant="secondary"
-            className="w-full justify-start"
-            disabled={buttonTimeouts[button.id]}
-          >
-            {button.text}
-          </ShadcnButton>
-        ))}
+        {typeof window !== "undefined" &&
+          buttonList.map((button) => (
+            <ShadcnButton
+              key={button.id}
+              data-cy={`chat-button-${button.text}`}
+              onClick={() => handleButtonClick(button)}
+              variant="secondary"
+              className="w-full"
+              disabled={buttonTimeouts[button.id]}
+              style={{
+                backgroundColor:
+                  "#" + button.color.toString(16).padStart(6, "0"),
+                color: "white",
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              {button.text}
+            </ShadcnButton>
+          ))}
       </div>
     </div>
   );

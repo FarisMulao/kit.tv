@@ -2,7 +2,7 @@
 
 import { Hint } from "@/components/hint";
 import { Button } from "@/components/ui/button";
-import { useCreatorSidebar } from "@/store/use-creator-sidebar";
+import { useCreatorSidebar } from "@/hooks/use-creator-sidebar";
 import { ArrowLeftFromLine, ArrowRightFromLine } from "lucide-react";
 
 export const Toggle = () => {

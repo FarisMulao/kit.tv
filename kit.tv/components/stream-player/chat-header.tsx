@@ -5,12 +5,12 @@ import { ChatToggle } from "./chat-toggle";
 
 export const ChatHeader = () => {
   return (
-    <div className="relative p-3 border-b">
+    <div className="relative p-3 border-b border-white/20">
       <div className="absolute left-2 top-2 lg:block">
         <ChatToggle />
       </div>
 
-      <p className="font-semibold text-primary text-center">Chat</p>
+      <p className="font-semibold text-white text-center">Chat</p>
     </div>
   );
 };

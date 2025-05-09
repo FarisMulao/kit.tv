@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { cn } from "@/lib/utils";
-import { useCreatorSidebar } from "@/store/use-creator-sidebar";
+import { useCreatorSidebar } from "@/hooks/use-creator-sidebar";
 import { LucideIcon } from "lucide-react";
 import Link from "next/link";
 
@@ -26,11 +26,8 @@ export const NavItem = ({
     <Button
       asChild
       variant="ghost"
-      className={cn(
-        "w-full h-12",
-        collapsed ? "justify-center" : "justify-center",
-        isActive && "bg-accent"
-      )}
+      data-cy={`sidebar-nav-item-${label}`}
+      className={cn("w-full h-10 rounded-sm", isActive && "bg-accent")}
     >
       <Link href={href}>
         <div className="flex items-center w-full gap-x-4">

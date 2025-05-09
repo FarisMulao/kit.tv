@@ -99,20 +99,21 @@ export const CreateButtonDialog = ({ streamerId }: CreateButtonDialogProps) => {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button variant="outline" className="w-full">
+        <Button variant="outline" className="w-full" data-cy="create-button-button">
           <Plus className="h-4 w-4 mr-2" />
           Add Button
         </Button>
       </DialogTrigger>
       <DialogContent>
         <DialogHeader>
-          <DialogTitle>Create New Button</DialogTitle>
+          <DialogTitle data-cy="create-button-dialog-title">Create New Button</DialogTitle>
         </DialogHeader>
         <div className="space-y-4 py-4">
           <div className="space-y-2">
-            <Label htmlFor="text">Button Text *</Label>
+            <Label htmlFor="text" data-cy="create-button-dialog-text">Button Text *</Label>
             <Input
               id="text"
+              data-cy="create-button-dialog-text-input"
               value={text}
               onChange={(e) => setText(e.target.value)}
               placeholder="Enter button text"
@@ -123,9 +124,10 @@ export const CreateButtonDialog = ({ streamerId }: CreateButtonDialogProps) => {
             )}
           </div>
           <div className="space-y-2">
-            <Label htmlFor="instructions">Instructions *</Label>
+            <Label htmlFor="instructions" data-cy="create-button-dialog-instructions">Instructions *</Label>
             <Input
               id="instructions"
+              data-cy="create-button-dialog-instructions-input"
               value={instructions}
               onChange={(e) => setInstructions(e.target.value)}
               placeholder="Enter button instructions"
@@ -136,7 +138,7 @@ export const CreateButtonDialog = ({ streamerId }: CreateButtonDialogProps) => {
             )}
           </div>
           <div className="space-y-2">
-            <Label htmlFor="color">Button Color</Label>
+            <Label htmlFor="color" data-cy="create-button-dialog-color">Button Color</Label>
             <div className="flex items-center gap-2">
               <Input
                 id="color"
@@ -153,7 +155,7 @@ export const CreateButtonDialog = ({ streamerId }: CreateButtonDialogProps) => {
             </div>
           </div>
           <div className="space-y-2">
-            <Label htmlFor="sound">Sound Effect</Label>
+            <Label htmlFor="sound" data-cy="create-button-dialog-sound">Sound Effect</Label>
             <div className="flex items-center gap-2">
               <div className="flex-1">
                 <Select
@@ -187,7 +189,7 @@ export const CreateButtonDialog = ({ streamerId }: CreateButtonDialogProps) => {
           </div>
         </div>
         <div className="flex justify-end">
-          <Button onClick={handleSubmit}>Create Button</Button>
+          <Button onClick={handleSubmit} data-cy="create-button-dialog-button">Create Button</Button>
         </div>
       </DialogContent>
     </Dialog>

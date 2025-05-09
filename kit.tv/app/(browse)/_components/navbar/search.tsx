@@ -35,13 +35,14 @@ export const Search = () => {
   return (
     <form
       onSubmit={onSubmit}
-      className="relative w-full lg:w-[400px] flex items-center"
+      className="relative w-full lg:w-[400px] flex items-center ml-10"
     >
       <Input
+        data-cy="search-input"
         value={value}
         onChange={(e) => setValue(e.target.value)}
         placeholder="Search"
-        className="rounded-r-none focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
+        className="rounded-r-none border-none focus-visible:ring-0 focus-visible:ring-transparent focus-visible:ring-offset-0"
       />
       {value && (
         <X
@@ -50,10 +51,11 @@ export const Search = () => {
         />
       )}
       <Button
+        data-cy="search-button"
         type="submit"
         size="sm"
         variant="secondary"
-        className="rounded-l-none"
+        className="rounded-l-none "
       >
         {" "}
         <SearchIcon className="h-5 w-5 text-muted-foreground" />

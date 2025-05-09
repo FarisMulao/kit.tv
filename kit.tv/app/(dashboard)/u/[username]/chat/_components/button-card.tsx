@@ -32,7 +32,7 @@ export const ButtonCard = ({ button }: ButtonCardProps) => {
   };
 
   return (
-    <Card>
+    <Card data-cy={`button-card-${button.text}`}>
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="flex items-center gap-2">
           <div

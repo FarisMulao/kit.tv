@@ -82,8 +82,8 @@
   --background: rgb(11, 8, 4);
   --foreground: rgb(247, 242, 237);
 
-  --card: rgb(0, 255, 255);
-  --card-foreground: rgb(0, 255, 255);
+  --card: rgb(127, 56, 17);
+  --card-foreground: rgb(247, 242, 237);
 
   --popover: rgb(127, 56, 17);
   --popover-foreground: rgb(247, 242, 237);
@@ -94,7 +94,7 @@
   --secondary: rgb(127, 56, 17);
   --secondary-foreground: rgb(127, 56, 17);
 
-  --muted: rgb(247, 242, 237);
+  --muted: rgb(159, 95, 40);
   --muted-foreground: rgb(247, 242, 237);
 
   --accent: rgb(119, 72, 34);

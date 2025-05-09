@@ -1,6 +1,6 @@
-import { updateStream } from './../../actions/stream'; // adjust
+import { updateStream } from '../../server-actions/stream'; // adjust
 import { db } from '@/lib/db';
-import { getSelf } from '@/lib/auth-service';
+import { getSelf } from '@/lib/auth';
 import { revalidatePath } from 'next/cache';
 
 jest.mock('@/lib/auth-service', () => ({

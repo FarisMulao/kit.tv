@@ -8,7 +8,7 @@ interface QueryButtonsProps {
   username: string;
 }
 
-export const EventsPanel = ({username}: QueryButtonsProps) => {
+export const EventsPanel = ({ username }: QueryButtonsProps) => {
   const [buttonEvents, setButtonEvents] = useState<Button[]>([]);
 
   useEffect(() => {
@@ -16,27 +16,31 @@ export const EventsPanel = ({username}: QueryButtonsProps) => {
       try {
         const buttons = await queryButtonsAction(username);
         if (buttons.success && buttons.buttons) {
-          setButtonEvents(prevButtons => {
+          setButtonEvents((prevButtons) => {
             const newButtons = buttons.buttons
               .filter((button: any) => button.text && button.instructions) // Filter out null values
               .map((button: any) => ({
                 ...button,
-                timeout: Date.now()
+                timeout: Date.now(),
               }));
-            
+
             // Play sound for each new event
             newButtons.forEach((button: Button) => {
-              if (button.soundName) {
+              if (button.soundName && button.soundName !== "None" && button.soundName !== "None ") {
                 const audio = new Audio(`/audioClips/${button.soundName}.mp3`);
-                audio.play().catch(error => console.error('Error playing sound:', error));
+                audio
+                  .play()
+                  .catch((error) =>
+                    console.error("Error playing sound:", error)
+                  );
               }
             });
-            
+
             return [...prevButtons, ...newButtons];
           });
         }
       } catch (error) {
-        console.error('Failed to fetch events:', error);
+        console.error("Failed to fetch events:", error);
       }
     };
 
@@ -44,13 +48,13 @@ export const EventsPanel = ({username}: QueryButtonsProps) => {
     fetchEvents();
 
     // Set up interval for fetching new events
-    const fetchInterval: NodeJS.Timeout = setInterval(fetchEvents, 60000); // Every 1 minute
+    const fetchInterval: NodeJS.Timeout = setInterval(fetchEvents, 2000); // Every 1 minute
 
     // Set up interval for clearing old events
     const clearInterval: NodeJS.Timeout = setInterval(() => {
-      setButtonEvents(prevButtons => 
-        prevButtons.filter(button => 
-          Date.now() - button.timeout < 30000 // 30 seconds
+      setButtonEvents((prevButtons) =>
+        prevButtons.filter(
+          (button) => Date.now() - button.timeout < 30000 // 30 seconds
         )
       );
     }, 10000); // Check every 10 seconds
@@ -62,11 +66,11 @@ export const EventsPanel = ({username}: QueryButtonsProps) => {
   }, []);
 
   return (
-    <div className="w-80 h-full bg-orange-900 p-4 overflow-y-auto">
+    <div className="w-80 h-full bg-orange-900 p-4 overflow-y-auto" data-cy="events-panel">
       <h2 className="text-xl font-bold mb-4">Events</h2>
       <div className="space-y-4">
         {buttonEvents.map((button: Button) => (
-          <div 
+          <div
             key={button.id + button.timeout}
             className="bg-gray-800 rounded-lg p-4 animate-fade-in"
           >
@@ -77,4 +81,4 @@ export const EventsPanel = ({username}: QueryButtonsProps) => {
       </div>
     </div>
   );
-}; 
+};

@@ -1,7 +1,7 @@
 import { toast } from "sonner";
 import { useState, useEffect } from "react";
 import {JwtPayload, jwtDecode} from "jwt-decode";
-import { createViewerToken } from "@/actions/token";
+import { createViewerToken } from "@/server-actions/token";
 
 export function useViewerToken(hostIdentity: string) {
     const [token, setToken] = useState("");

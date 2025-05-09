@@ -1,5 +1,5 @@
-import { getSelf } from "@/lib/auth-service";
-import { getStreamByUserId } from "@/lib/stream-service";
+import { getSelf } from "@/lib/auth";
+import { getStreamByUserId } from "@/lib/stream";
 import { ToggleCard } from "./_components/toggle-card";
 import { getButtons } from "@/lib/button-service";
 import { Button } from "@prisma/client";
@@ -16,7 +16,7 @@ const ChatPage = async () => {
   }
 
   return (
-    <div className="p-6 space-y-8">
+    <div className="p-6 space-y-8" data-cy="chat-page">
       <div>
         <h1 className="text-2xl font-bold mb-4">Chat Settings</h1>
         <div className="space-y-4">
